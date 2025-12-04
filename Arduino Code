@@ -1,0 +1,107 @@
+#include <Servo.h>  
+Servo myservo1;
+Servo myservo2;  
+Servo myservo3;
+int led1=3;
+int led2=5;
+int led3=6;
+
+
+int ldr=A0;
+
+
+int ir1=A1;
+int ir2=A2;
+int ir3=A3;
+
+void setup(){
+  Serial.begin(9600);
+
+  pinMode(led1,OUTPUT);
+  pinMode(led2,OUTPUT);
+  pinMode(led3,OUTPUT);
+ 
+  pinMode(ldr,INPUT);
+
+
+  pinMode(ir1,INPUT);
+  pinMode(ir2,INPUT);
+  pinMode(ir3,INPUT);
+
+  Serial.begin(9600);  
+
+  myservo1.attach(8);
+  myservo2.attach(2);  
+  myservo3.attach(9);
+
+}
+
+
+void loop(){
+  Serial.println(analogRead(A0));
+  int ldrStatus= analogRead(ldr);
+  if(ldrStatus >=500)
+  {
+    digitalWrite(led1,HIGH);
+    analogWrite(led1,255/5);
+
+
+    digitalWrite(led2,HIGH);
+    analogWrite(led2,255/5);
+
+
+    digitalWrite(led3,HIGH);
+    analogWrite(led3,255/5);
+    myservo1.write(180);
+    delay(100);
+    myservo2.write(180);
+    delay(100);
+    myservo3.write(180);
+    delay(100);
+
+    if (analogRead(A1)<300){
+      digitalWrite(led1,HIGH);
+      analogWrite(led1,255);
+      delay(1000);
+    }
+    else{
+      digitalWrite(led1,HIGH);
+      analogWrite(led1,255/5);
+    }
+
+
+    if (analogRead(A2)<300){
+      digitalWrite(led2,HIGH);
+      analogWrite(led2,255);
+      delay(1000);
+    }
+    else{
+      digitalWrite(led2,HIGH);
+      analogWrite(led2,255/5);
+    }
+
+
+    if (analogRead(A3)<300){
+      digitalWrite(led3,HIGH);
+      analogWrite(led3,255);
+      delay(1000);
+    }
+    else{
+      digitalWrite(led3,HIGH);
+      analogWrite(led3,255/5);
+    }
+  }
+  else{
+    digitalWrite(led1,LOW);
+    digitalWrite(led2,LOW);
+    digitalWrite(led3,LOW);
+    myservo1.write(45);
+    delay(100);
+    myservo2.write(45);
+    delay(100);
+    myservo3.write(45);
+    delay(100);
+  }
+}
+
+
